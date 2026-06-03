@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import { MdCellWifi } from "react-icons/md";
+import { RiLoginCircleFill } from "react-icons/ri";
 
 function Header() {
   return (
@@ -15,10 +17,10 @@ function Header() {
         </div>
         <div className="d-flex gap-3">
           <Link to={"/login"}>
-            <button className="btn btn-outline-primary">Login</button>
+            <button className="btn btn-outline-primary fs-5"><RiLoginCircleFill /><span>Login</span></button>
           </Link>
           <Link to={"/register"}>
-            <button className="btn btn-primary">Register</button>
+            <button className="btn btn-primary fs-5"><MdCellWifi /><span>Register</span></button>
           </Link>
         </div>
       </div>
