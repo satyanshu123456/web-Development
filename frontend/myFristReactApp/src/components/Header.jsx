@@ -20,7 +20,7 @@ function Header() {
             <button className="btn btn-outline-primary fs-5"><RiLoginCircleFill /><span>Login</span></button>
           </Link>
           <Link to={"/register"}>
-            <button className="btn btn-primary fs-5"><MdCellWifi /><span>Register</span></button>
+            <button className="btn btn-primary fs-5"><MdCellWifi /><span>Register kro</span></button>
           </Link>
         </div>
       </div>
