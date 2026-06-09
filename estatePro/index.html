@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EstatePro — Premium Real Estate Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #c9a84c;
+    --gold-light: #e8c87a;
+    --gold-dark: #8a6c28;
+    --black: #0a0a0a;
+    --dark: #111111;
+    --dark2: #1a1a1a;
+    --dark3: #222222;
+    --text: #e8e2d5;
+    --muted: #888880;
+    --border: rgba(201,168,76,0.2);
+    --success: #4caf7d;
+    --danger: #e06060;
+    --info: #5b9bd5;
+  }
+ 
+  * { margin:0; padding:0; box-sizing:border-box; }
+ 
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--black);
+    color: var(--text);
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+ 
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--dark); }
+  ::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 2px; }
+ 
+  /* ===== NAVBAR ===== */
+  nav {
+    position: fixed; top:0; left:0; right:0; z-index:100;
+    display: flex; align-items:center; justify-content:space-between;
+    padding: 20px 60px;
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+ 
+  .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px; font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 2px;
+  }
+  .logo span { color: var(--text); font-weight: 300; }
+ 
+  .nav-links { display:flex; gap:36px; align-items:center; }
+  .nav-links a {
+    font-size:13px; font-weight:400; letter-spacing:1.5px; text-transform:uppercase;
+    color: var(--muted); text-decoration:none; cursor:pointer;
+    transition: color .3s;
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+ 
+  .nav-cta {
+    background: var(--gold);
+    color: var(--black) !important;
+    padding: 10px 24px;
+    font-weight: 500 !important;
+    letter-spacing: 1px;
+    transition: background .3s !important;
+  }
+  .nav-cta:hover { background: var(--gold-light) !important; }
+ 
+  /* ===== HERO ===== */
+  #hero {
+    min-height: 100vh;
+    display: flex; align-items:center; justify-content:center;
+    position: relative; overflow:hidden;
+    padding-top: 80px;
+    background: radial-gradient(ellipse 80% 80% at 50% 0%, rgba(201,168,76,0.06) 0%, transparent 70%);
+  }
+ 
+  .hero-grid {
+    position:absolute; inset:0; opacity:0.04;
+    background-image: linear-gradient(var(--gold) 1px, transparent 1px),
+                      linear-gradient(90deg, var(--gold) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+ 
+  .hero-inner {
+    text-align:center; max-width:900px; padding:0 40px;
+    animation: fadeUp .8s ease both;
+  }
+ 
+  .hero-tag {
+    display:inline-block; border:1px solid var(--gold);
+    color: var(--gold); font-size:11px; letter-spacing:3px;
+    text-transform:uppercase; padding:6px 20px; margin-bottom:32px;
+    animation: fadeUp .6s ease .1s both;
+  }
+ 
+  h1 {
+    font-family:'Cormorant Garamond', serif;
+    font-size: clamp(48px, 7vw, 88px);
+    line-height:1.05; font-weight:300;
+    margin-bottom: 24px;
+    animation: fadeUp .8s ease .2s both;
+  }
+  h1 em { font-style:italic; color:var(--gold); }
+ 
+  .hero-sub {
+    color:var(--muted); font-size:16px; max-width:520px; margin:0 auto 48px;
+    line-height:1.8; font-weight:300;
+    animation: fadeUp .8s ease .3s both;
+  }
+ 
+  .hero-btns { display:flex; gap:16px; justify-content:center; flex-wrap:wrap;
+    animation: fadeUp .8s ease .4s both; }
+ 
+  .btn-primary {
+    background: var(--gold); color: var(--black);
+    padding:14px 36px; font-size:13px; font-weight:500;
+    letter-spacing:1.5px; text-transform:uppercase; border:none; cursor:pointer;
+    transition: all .3s; clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  }
+  .btn-primary:hover { background:var(--gold-light); transform:translateY(-2px); }
+ 
+  .btn-outline {
+    background: transparent; color: var(--text);
+    padding:14px 36px; font-size:13px; font-weight:400;
+    letter-spacing:1.5px; text-transform:uppercase;
+    border:1px solid rgba(255,255,255,0.2); cursor:pointer;
+    transition: all .3s;
+  }
+  .btn-outline:hover { border-color:var(--gold); color:var(--gold); }
+ 
+  .hero-stats {
+    display:flex; gap:60px; justify-content:center; margin-top:72px;
+    border-top:1px solid var(--border); padding-top:40px;
+    animation: fadeUp .8s ease .5s both;
+  }
+ 
+  .stat-item { text-align:center; }
+  .stat-num {
+    font-family:'Cormorant Garamond', serif;
+    font-size:42px; font-weight:600; color:var(--gold);
+    line-height:1;
+  }
+  .stat-label { font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-top:6px; }
+ 
+  /* ===== SECTION COMMON ===== */
+  section { padding: 100px 60px; }
+  .section-tag {
+    font-size:11px; letter-spacing:3px; text-transform:uppercase;
+    color:var(--gold); margin-bottom:16px;
+  }
+  .section-title {
+    font-family:'Cormorant Garamond', serif;
+    font-size: clamp(36px, 4vw, 56px); font-weight:300;
+    line-height:1.1; margin-bottom:16px;
+  }
+  .section-sub { color:var(--muted); font-size:15px; line-height:1.8; max-width:520px; }
+ 
+  /* ===== LISTINGS ===== */
+  #listings { background: var(--dark); }
+ 
+  .listings-header {
+    display:flex; align-items:flex-end; justify-content:space-between;
+    margin-bottom:48px; flex-wrap:wrap; gap:20px;
+  }
+ 
+  .filter-tabs { display:flex; gap:4px; }
+  .filter-tab {
+    padding:8px 20px; font-size:12px; letter-spacing:1px; text-transform:uppercase;
+    cursor:pointer; border:1px solid var(--border); background:transparent;
+    color:var(--muted); transition:all .2s;
+  }
+  .filter-tab.active { background:var(--gold); color:var(--black); border-color:var(--gold); }
+  .filter-tab:hover:not(.active) { border-color:var(--gold); color:var(--gold); }
+ 
+  .properties-grid {
+    display:grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap:24px;
+  }
+ 
+  .property-card {
+    background: var(--dark2);
+    border: 1px solid var(--border);
+    overflow:hidden; cursor:pointer;
+    transition: transform .3s, border-color .3s, box-shadow .3s;
+    position:relative;
+  }
+  .property-card:hover {
+    transform:translateY(-6px);
+    border-color: rgba(201,168,76,0.5);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+ 
+  .prop-img {
+    height:220px; position:relative; overflow:hidden;
+  }
+  .prop-img-inner {
+    width:100%; height:100%;
+    transition: transform .5s;
+    position:relative;
+  }
+  .property-card:hover .prop-img-inner { transform:scale(1.05); }
+ 
+  .prop-badge {
+    position:absolute; top:16px; left:16px; z-index:2;
+    padding:4px 12px; font-size:10px; letter-spacing:2px; text-transform:uppercase;
+    font-weight:500;
+  }
+  .badge-sale { background:var(--gold); color:var(--black); }
+  .badge-lease { background:var(--info); color:white; }
+  .badge-sold { background:var(--success); color:white; }
+  .badge-resale { background:var(--danger); color:white; }
+ 
+  .prop-actions {
+    position:absolute; top:16px; right:16px; z-index:2;
+    display:flex; gap:6px;
+  }
+  .prop-action-btn {
+    width:32px; height:32px; border-radius:50%;
+    background:rgba(0,0,0,0.6); border:1px solid var(--border);
+    color:var(--muted); font-size:14px; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    transition:all .2s; backdrop-filter:blur(8px);
+  }
+  .prop-action-btn:hover { background:var(--gold); color:var(--black); border-color:var(--gold); }
+  .prop-action-btn.liked { background:var(--danger); color:white; border-color:var(--danger); }
+ 
+  .prop-body { padding:24px; }
+  .prop-price {
+    font-family:'Cormorant Garamond', serif;
+    font-size:28px; color:var(--gold); font-weight:600; margin-bottom:6px;
+  }
+  .prop-name { font-size:16px; font-weight:500; margin-bottom:4px; }
+  .prop-loc { font-size:13px; color:var(--muted); display:flex; align-items:center; gap:4px; margin-bottom:16px; }
+ 
+  .prop-features {
+    display:flex; gap:20px;
+    border-top:1px solid var(--border); padding-top:16px;
+    font-size:12px; color:var(--muted);
+  }
+  .prop-feat { display:flex; align-items:center; gap:6px; }
+  .prop-feat span { font-size:15px; }
+ 
+  .prop-footer {
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 24px; background:var(--dark3);
+    border-top:1px solid var(--border);
+  }
+  .prop-agent { display:flex; align-items:center; gap:10px; }
+  .agent-avatar {
+    width:28px; height:28px; border-radius:50%;
+    background:var(--gold-dark); display:flex; align-items:center;
+    justify-content:center; font-size:12px; color:var(--black); font-weight:600;
+  }
+  .agent-name { font-size:12px; color:var(--muted); }
+ 
+  .prop-cta {
+    background:transparent; border:1px solid var(--gold);
+    color:var(--gold); padding:6px 16px; font-size:11px;
+    letter-spacing:1px; text-transform:uppercase; cursor:pointer;
+    transition:all .2s;
+  }
+  .prop-cta:hover { background:var(--gold); color:var(--black); }
+ 
+  /* ===== BUILDING IMAGE PLACEHOLDERS (CSS ART) ===== */
+  .building-visual {
+    width:100%; height:100%;
+    display:flex; align-items:flex-end; justify-content:center;
+    padding: 20px;
+    position:relative;
+  }
+ 
+  /* ===== DASHBOARD ===== */
+  #dashboard { background: var(--black); }
+ 
+  .dashboard-grid {
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap:20px; margin-bottom:40px;
+  }
+ 
+  .metric-card {
+    background:var(--dark2); border:1px solid var(--border);
+    padding:28px; position:relative; overflow:hidden;
+  }
+  .metric-card::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .metric-icon { font-size:28px; margin-bottom:12px; }
+  .metric-val {
+    font-family:'Cormorant Garamond', serif;
+    font-size:36px; font-weight:600; color:var(--gold);
+    margin-bottom:4px;
+  }
+  .metric-label { font-size:12px; color:var(--muted); letter-spacing:1px; text-transform:uppercase; }
+  .metric-change { font-size:12px; margin-top:8px; }
+  .metric-change.up { color:var(--success); }
+  .metric-change.down { color:var(--danger); }
+ 
+  .dashboard-lower {
+    display:grid; grid-template-columns: 1.4fr 1fr; gap:20px;
+  }
+ 
+  .table-card {
+    background:var(--dark2); border:1px solid var(--border); overflow:hidden;
+  }
+  .card-header {
+    padding:20px 24px; border-bottom:1px solid var(--border);
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .card-title { font-size:14px; font-weight:500; letter-spacing:.5px; }
+  .card-link { font-size:12px; color:var(--gold); cursor:pointer; text-decoration:none; }
+ 
+  table { width:100%; border-collapse:collapse; }
+  thead th {
+    padding:12px 24px; font-size:10px; letter-spacing:2px; text-transform:uppercase;
+    color:var(--muted); font-weight:400; text-align:left;
+    border-bottom:1px solid var(--border);
+  }
+  tbody tr { transition:background .2s; cursor:pointer; }
+  tbody tr:hover { background:rgba(201,168,76,0.05); }
+  tbody td {
+    padding:14px 24px; font-size:13px; color:var(--text);
+    border-bottom:1px solid rgba(255,255,255,0.04);
+  }
+ 
+  .status-pill {
+    display:inline-block; padding:3px 10px; font-size:10px;
+    letter-spacing:1px; text-transform:uppercase; border-radius:20px;
+  }
+  .status-active { background:rgba(76,175,125,0.15); color:var(--success); }
+  .status-pending { background:rgba(201,168,76,0.15); color:var(--gold); }
+  .status-sold { background:rgba(91,155,213,0.15); color:var(--info); }
+ 
+  .activity-feed { }
+  .activity-item {
+    display:flex; gap:14px; align-items:flex-start;
+    padding:16px 24px; border-bottom:1px solid rgba(255,255,255,0.04);
+    transition:background .2s;
+  }
+  .activity-item:hover { background:rgba(201,168,76,0.04); }
+  .activity-dot {
+    width:8px; height:8px; border-radius:50%; margin-top:5px; flex-shrink:0;
+  }
+  .dot-sale { background:var(--success); }
+  .dot-inquiry { background:var(--gold); }
+  .dot-lease { background:var(--info); }
+  .dot-resale { background:var(--danger); }
+  .activity-text { font-size:13px; line-height:1.6; }
+  .activity-time { font-size:11px; color:var(--muted); margin-top:2px; }
+ 
+  /* ===== MANAGEMENT ===== */
+  #management { background:var(--dark); }
+ 
+  .mgmt-grid {
+    display:grid; grid-template-columns: repeat(3, 1fr); gap:24px;
+  }
+ 
+  .mgmt-card {
+    background:var(--dark2); border:1px solid var(--border);
+    padding:32px; position:relative; overflow:hidden;
+    transition:all .3s; cursor:pointer;
+  }
+  .mgmt-card:hover {
+    border-color:rgba(201,168,76,0.4);
+    transform:translateY(-4px);
+  }
+  .mgmt-card::after {
+    content:''; position:absolute; bottom:0; left:0; right:0; height:1px;
+    background:linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity:0; transition:opacity .3s;
+  }
+  .mgmt-card:hover::after { opacity:1; }
+ 
+  .mgmt-icon {
+    width:56px; height:56px; background:rgba(201,168,76,0.1);
+    border:1px solid var(--border); display:flex; align-items:center;
+    justify-content:center; font-size:24px; margin-bottom:24px;
+  }
+  .mgmt-title { font-size:18px; font-weight:500; margin-bottom:10px; }
+  .mgmt-desc { font-size:13px; color:var(--muted); line-height:1.7; }
+ 
+  /* ===== RESALE FLOW ===== */
+  #resale { background:var(--black); }
+ 
+  .resale-steps {
+    display:grid; grid-template-columns: repeat(4, 1fr); gap:0;
+    position:relative; margin-top:60px;
+  }
+  .resale-steps::before {
+    content:''; position:absolute; top:28px; left:10%; right:10%; height:1px;
+    background:linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-dark));
+    z-index:0;
+  }
+ 
+  .step-item { text-align:center; position:relative; z-index:1; padding:0 20px; }
+  .step-num {
+    width:56px; height:56px; border-radius:50%;
+    background:var(--gold); color:var(--black);
+    font-family:'Cormorant Garamond', serif; font-size:22px; font-weight:600;
+    display:flex; align-items:center; justify-content:center;
+    margin:0 auto 20px;
+    box-shadow: 0 0 0 4px var(--black), 0 0 0 5px var(--gold-dark);
+  }
+  .step-title { font-size:14px; font-weight:500; margin-bottom:8px; }
+  .step-desc { font-size:12px; color:var(--muted); line-height:1.6; }
+ 
+  /* ===== MODAL ===== */
+  .modal-overlay {
+    position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:200;
+    display:flex; align-items:center; justify-content:center;
+    opacity:0; pointer-events:none; transition:opacity .3s;
+    backdrop-filter:blur(8px);
+  }
+  .modal-overlay.open { opacity:1; pointer-events:all; }
+ 
+  .modal {
+    background:var(--dark2); border:1px solid var(--border);
+    max-width:900px; width:90%; max-height:90vh; overflow-y:auto;
+    transform:translateY(30px); transition:transform .3s;
+  }
+  .modal-overlay.open .modal { transform:translateY(0); }
+ 
+  .modal-header {
+    padding:32px 40px 0;
+    display:flex; align-items:flex-start; justify-content:space-between;
+    position:sticky; top:0; background:var(--dark2); z-index:1;
+    padding-bottom:20px; border-bottom:1px solid var(--border);
+  }
+  .modal-close {
+    background:none; border:1px solid var(--border); color:var(--muted);
+    width:36px; height:36px; font-size:18px; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    transition:all .2s; flex-shrink:0;
+  }
+  .modal-close:hover { border-color:var(--gold); color:var(--gold); }
+ 
+  .modal-body { padding:32px 40px; }
+ 
+  .modal-two-col { display:grid; grid-template-columns:1fr 1fr; gap:32px; }
+ 
+  .modal-img {
+    height:280px; background:var(--dark3); position:relative;
+    display:flex; align-items:center; justify-content:center; overflow:hidden;
+    margin-bottom:20px;
+  }
+ 
+  .detail-row {
+    display:flex; align-items:center; justify-content:space-between;
+    padding:12px 0; border-bottom:1px solid rgba(255,255,255,0.06);
+    font-size:13px;
+  }
+  .detail-key { color:var(--muted); }
+  .detail-val { font-weight:500; }
+  .detail-val.gold { color:var(--gold); }
+ 
+  .form-group { margin-bottom:20px; }
+  .form-label { font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); margin-bottom:8px; display:block; }
+  .form-input {
+    width:100%; background:var(--dark3); border:1px solid var(--border);
+    color:var(--text); padding:12px 16px; font-family:'DM Sans',sans-serif;
+    font-size:14px; outline:none; transition:border .2s;
+  }
+  .form-input:focus { border-color:var(--gold); }
+  .form-select {
+    width:100%; background:var(--dark3); border:1px solid var(--border);
+    color:var(--text); padding:12px 16px; font-family:'DM Sans',sans-serif;
+    font-size:14px; outline:none; appearance:none; cursor:pointer;
+  }
+ 
+  /* ===== TOAST ===== */
+  .toast {
+    position:fixed; bottom:32px; right:32px; z-index:300;
+    background:var(--dark2); border:1px solid var(--gold);
+    padding:16px 24px; max-width:320px;
+    transform:translateY(20px); opacity:0; transition:all .3s;
+    display:flex; align-items:center; gap:12px;
+  }
+  .toast.show { transform:translateY(0); opacity:1; }
+  .toast-icon { font-size:20px; }
+  .toast-text { font-size:13px; line-height:1.5; }
+ 
+  /* ===== FOOTER ===== */
+  footer {
+    background:var(--dark); border-top:1px solid var(--border);
+    padding:60px; display:grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr; gap:40px;
+  }
+  .footer-brand .logo { font-size:22px; margin-bottom:12px; display:block; }
+  .footer-desc { font-size:13px; color:var(--muted); line-height:1.8; max-width:280px; }
+ 
+  .footer-col h4 {
+    font-size:11px; letter-spacing:2px; text-transform:uppercase;
+    color:var(--gold); margin-bottom:20px;
+  }
+  .footer-links { list-style:none; display:flex; flex-direction:column; gap:10px; }
+  .footer-links a { font-size:13px; color:var(--muted); text-decoration:none; cursor:pointer; transition:color .2s; }
+  .footer-links a:hover { color:var(--text); }
+ 
+  .footer-bottom {
+    background:var(--black); border-top:1px solid var(--border);
+    padding:20px 60px; display:flex; justify-content:space-between; align-items:center;
+  }
+  .footer-copy { font-size:12px; color:var(--muted); }
+ 
+  /* ===== ANIMATIONS ===== */
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(24px); }
+    to { opacity:1; transform:translateY(0); }
+  }
+ 
+  .reveal {
+    opacity:0; transform:translateY(30px);
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+ 
+  /* Building SVG Colors */
+  .bldg-1 { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); }
+  .bldg-2 { background: linear-gradient(135deg, #0f2027 0%, #1a3a4a 100%); }
+  .bldg-3 { background: linear-gradient(135deg, #1a0f2e 0%, #2d1b4e 100%); }
+  .bldg-4 { background: linear-gradient(135deg, #0a2818 0%, #1a4a2e 100%); }
+  .bldg-5 { background: linear-gradient(135deg, #2a1a0a 0%, #3d2612 100%); }
+  .bldg-6 { background: linear-gradient(135deg, #1a0a1a 0%, #3d1238 100%); }
+ 
+  /* Scroll indicator */
+  .scroll-hint {
+    position:absolute; bottom:40px; left:50%; transform:translateX(-50%);
+    display:flex; flex-direction:column; align-items:center; gap:8px;
+    font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--muted);
+    animation:float 2s ease-in-out infinite;
+  }
+  .scroll-arrow { font-size:18px; color:var(--gold); }
+  @keyframes float { 0%,100% { transform:translateX(-50%) translateY(0); } 50% { transform:translateX(-50%) translateY(8px); } }
+ 
+  /* Responsive */
+  @media (max-width:900px) {
+    nav { padding:16px 24px; }
+    .nav-links { display:none; }
+    section { padding:60px 24px; }
+    .dashboard-grid { grid-template-columns:1fr 1fr; }
+    .dashboard-lower { grid-template-columns:1fr; }
+    .mgmt-grid { grid-template-columns:1fr; }
+    .resale-steps { grid-template-columns:1fr 1fr; }
+    .resale-steps::before { display:none; }
+    footer { grid-template-columns:1fr 1fr; padding:40px 24px; }
+    .footer-bottom { padding:16px 24px; flex-direction:column; gap:8px; }
+    .modal-two-col { grid-template-columns:1fr; }
+  }
+ 
+  @media (max-width:600px) {
+    .dashboard-grid { grid-template-columns:1fr; }
+    .resale-steps { grid-template-columns:1fr; }
+    .hero-stats { gap:30px; }
+    .properties-grid { grid-template-columns:1fr; }
+    footer { grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+ 
+<!-- NAVBAR -->
+<nav>
+  <div class="logo">Estate<span>Pro</span></div>
+  <div class="nav-links">
+    <a href="#" onclick="scrollTo('hero')" class="active">Home</a>
+    <a href="#" onclick="scrollTo('listings')">Properties</a>
+    <a href="#" onclick="scrollTo('dashboard')">Dashboard</a>
+    <a href="#" onclick="scrollTo('management')">Management</a>
+    <a href="#" onclick="scrollTo('resale')">Resale</a>
+    <a href="#" class="nav-cta" onclick="openModal('list-prop')">List Property</a>
+  </div>
+</nav>
+ 
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div class="hero-tag">Premium Real Estate Platform</div>
+    <h1>Buy, Sell & Manage<br><em>Premium Properties</em></h1>
+    <p class="hero-sub">Discover, acquire, and manage commercial & residential buildings. Complete lifecycle from purchase to resale — all in one platform.</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="smoothScroll('listings')">Explore Properties</button>
+      <button class="btn-outline" onclick="smoothScroll('dashboard')">View Dashboard</button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">₹4.2B+</div>
+        <div class="stat-label">Total Transactions</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">1,840</div>
+        <div class="stat-label">Properties Listed</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">320+</div>
+        <div class="stat-label">Active Clients</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">98%</div>
+        <div class="stat-label">Client Satisfaction</div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-arrow">↓</div>
+    Scroll
+  </div>
+</section>
+ 
+<!-- LISTINGS -->
+<section id="listings">
+  <div class="listings-header reveal">
+    <div>
+      <div class="section-tag">Available Properties</div>
+      <div class="section-title">Featured <em style="font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gold)">Buildings</em></div>
+    </div>
+    <div class="filter-tabs">
+      <button class="filter-tab active" onclick="filterProps(this,'all')">All</button>
+      <button class="filter-tab" onclick="filterProps(this,'sale')">For Sale</button>
+      <button class="filter-tab" onclick="filterProps(this,'lease')">Lease</button>
+      <button class="filter-tab" onclick="filterProps(this,'resale')">Resale</button>
+    </div>
+  </div>
+  <div class="properties-grid" id="prop-grid">
+    <!-- Cards injected by JS -->
+  </div>
+</section>
+ 
+<!-- DASHBOARD -->
+<section id="dashboard">
+  <div class="reveal">
+    <div class="section-tag">Analytics & Overview</div>
+    <div class="section-title">Your <em style="font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gold)">Portfolio</em> Dashboard</div>
+    <p class="section-sub" style="margin-bottom:48px;">Complete visibility into your property portfolio — transactions, ROI, and management in real-time.</p>
+  </div>
+ 
+  <div class="dashboard-grid reveal">
+    <div class="metric-card">
+      <div class="metric-icon">🏢</div>
+      <div class="metric-val">24</div>
+      <div class="metric-label">Total Properties</div>
+      <div class="metric-change up">↑ 3 this month</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-icon">💰</div>
+      <div class="metric-val">₹18.4Cr</div>
+      <div class="metric-label">Portfolio Value</div>
+      <div class="metric-change up">↑ 12.6% YoY</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-icon">📈</div>
+      <div class="metric-val">₹2.1Cr</div>
+      <div class="metric-label">Annual Rental Income</div>
+      <div class="metric-change up">↑ 8.4% vs last yr</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-icon">🔄</div>
+      <div class="metric-val">7</div>
+      <div class="metric-label">Pending Resales</div>
+      <div class="metric-change down">↓ 2 closed deals</div>
+    </div>
+  </div>
+ 
+  <div class="dashboard-lower reveal">
+    <div class="table-card">
+      <div class="card-header">
+        <div class="card-title">Recent Transactions</div>
+        <a class="card-link">View All →</a>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Property</th>
+            <th>Type</th>
+            <th>Value</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="txn-table">
+        </tbody>
+      </table>
+    </div>
+    <div class="table-card">
+      <div class="card-header">
+        <div class="card-title">Recent Activity</div>
+        <a class="card-link">See All</a>
+      </div>
+      <div class="activity-feed" id="activity-feed">
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- MANAGEMENT -->
+<section id="management">
+  <div class="reveal" style="margin-bottom:52px;">
+    <div class="section-tag">Property Management</div>
+    <div class="section-title">Complete <em style="font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gold)">Control</em> Suite</div>
+    <p class="section-sub">Manage every aspect of your properties — tenants, maintenance, documents, and financials — from a single platform.</p>
+  </div>
+  <div class="mgmt-grid">
+    <div class="mgmt-card reveal" onclick="showToast('🏠','Tenant Management module opening...')">
+      <div class="mgmt-icon">👥</div>
+      <div class="mgmt-title">Tenant Management</div>
+      <div class="mgmt-desc">Track tenant profiles, lease agreements, rent collection, and communication history. Set automated reminders for renewals and payments.</div>
+    </div>
+    <div class="mgmt-card reveal" onclick="showToast('🔧','Maintenance module opening...')">
+      <div class="mgmt-icon">🔧</div>
+      <div class="mgmt-title">Maintenance & Repairs</div>
+      <div class="mgmt-desc">Log service requests, assign vendors, track completion, and manage maintenance budgets. Full audit trail for all work orders.</div>
+    </div>
+    <div class="mgmt-card reveal" onclick="showToast('📄','Document vault opening...')">
+      <div class="mgmt-icon">📄</div>
+      <div class="mgmt-title">Document Vault</div>
+      <div class="mgmt-desc">Securely store sale deeds, property papers, NOCs, rent agreements, and legal documents. E-sign and share instantly.</div>
+    </div>
+    <div class="mgmt-card reveal" onclick="showToast('💳','Financial reports loading...')">
+      <div class="mgmt-icon">💳</div>
+      <div class="mgmt-title">Financial Reports</div>
+      <div class="mgmt-desc">Auto-generate P&L statements, rental income reports, expense tracking, and ROI analysis for each property.</div>
+    </div>
+    <div class="mgmt-card reveal" onclick="showToast('🏙️','Building inspector opening...')">
+      <div class="mgmt-icon">🏙️</div>
+      <div class="mgmt-title">Building Inspector</div>
+      <div class="mgmt-desc">Schedule and record property inspections with photo documentation. Compare condition reports over time with timeline view.</div>
+    </div>
+    <div class="mgmt-card reveal" onclick="showToast('📊','Analytics dashboard loading...')">
+      <div class="mgmt-icon">📊</div>
+      <div class="mgmt-title">Smart Analytics</div>
+      <div class="mgmt-desc">Market value comparisons, price trend forecasts, occupancy rates, and neighborhood analysis to guide investment decisions.</div>
+    </div>
+  </div>
+</section>
+ 
+<!-- RESALE FLOW -->
+<section id="resale">
+  <div class="reveal" style="text-align:center; margin-bottom:20px;">
+    <div class="section-tag">Resale Process</div>
+    <div class="section-title">Seamless <em style="font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gold)">Resale</em> Journey</div>
+    <p class="section-sub" style="margin:0 auto;">Whether you want to hold, lease, or flip — our guided resale process handles all legal, financial, and marketing aspects end-to-end.</p>
+  </div>
+  <div class="resale-steps reveal">
+    <div class="step-item">
+      <div class="step-num">1</div>
+      <div class="step-title">Valuation Request</div>
+      <div class="step-desc">Get an AI-driven market valuation report in 48 hours, comparing 50+ recent comparable sales.</div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">2</div>
+      <div class="step-title">List & Market</div>
+      <div class="step-desc">Your property goes live with professional photos, 3D walkthroughs, and targeted digital marketing.</div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">3</div>
+      <div class="step-title">Negotiate & Verify</div>
+      <div class="step-desc">Our team handles buyer negotiations, legal due diligence, title verification, and loan assistance.</div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">4</div>
+      <div class="step-title">Close & Transfer</div>
+      <div class="step-desc">Stamp duty, registration, TDS compliance, and ownership transfer — all completed under one roof.</div>
+    </div>
+  </div>
+  <div style="text-align:center; margin-top:60px;" class="reveal">
+    <button class="btn-primary" onclick="openModal('resale-calc')">Get Resale Valuation</button>
+  </div>
+</section>
+ 
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <span class="logo">Estate<span>Pro</span></span>
+    <p class="footer-desc">India's most trusted platform for premium commercial and residential property transactions, management, and resale.</p>
+  </div>
+  <div class="footer-col">
+    <h4>Properties</h4>
+    <ul class="footer-links">
+      <li><a>Commercial Spaces</a></li>
+      <li><a>Residential Towers</a></li>
+      <li><a>Industrial Units</a></li>
+      <li><a>Plots & Land</a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h4>Services</h4>
+    <ul class="footer-links">
+      <li><a>Buy Property</a></li>
+      <li><a>Lease Out</a></li>
+      <li><a>Resale</a></li>
+      <li><a>Property Mgmt</a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h4>Company</h4>
+    <ul class="footer-links">
+      <li><a>About Us</a></li>
+      <li><a>Careers</a></li>
+      <li><a>Legal</a></li>
+      <li><a>Contact</a></li>
+    </ul>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <div class="footer-copy">© 2025 EstatePro. All rights reserved. RERA Registered.</div>
+  <div class="footer-copy">Privacy Policy · Terms of Service · RERA: MP/2025/EST001</div>
+</div>
+ 
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+  <div class="modal" id="modal-inner">
+    <div class="modal-header">
+      <div>
+        <div id="modal-title" style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;"></div>
+        <div id="modal-subtitle" style="font-size:13px;color:var(--muted);margin-top:4px;"></div>
+      </div>
+      <button class="modal-close" onclick="document.getElementById('modal-overlay').classList.remove('open')">✕</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+ 
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <div class="toast-icon" id="toast-icon"></div>
+  <div class="toast-text" id="toast-text"></div>
+</div>
+ 
+<script>
+// ===== DATA =====
+const properties = [
+  {
+    id:1, name:"Rajkamal Business Tower", loc:"MP Nagar, Bhopal",
+    price:"₹12.4 Cr", type:"sale", beds:null, baths:null, sqft:"18,400",
+    floors:24, parking:120, agent:"Ravi Sharma", agentInitial:"RS",
+    color:"bldg-1", category:"Commercial",
+    desc:"Premium Grade A office tower in MP Nagar's prime business district. LEED Gold certified, centralized HVAC, 100% power backup."
+  },
+  {
+    id:2, name:"Greenpark Residency", loc:"Arera Colony, Bhopal",
+    price:"₹3.8 Cr", type:"sale", beds:4, baths:4, sqft:"3,200",
+    floors:null, parking:2, agent:"Priya Gupta", agentInitial:"PG",
+    color:"bldg-4", category:"Residential",
+    desc:"Luxury 4BHK apartment in the heart of Arera Colony. Private terrace, modular kitchen, branded fittings throughout."
+  },
+  {
+    id:3, name:"Neelam Commercial Hub", loc:"New Market, Bhopal",
+    price:"₹1.8L/mo", type:"lease", beds:null, baths:null, sqft:"6,800",
+    floors:12, parking:60, agent:"Sandeep Jain", agentInitial:"SJ",
+    color:"bldg-2", category:"Commercial",
+    desc:"Iconic high-street commercial space in New Market. Ideal for showroom, retail, or corporate office. Metro accessible."
+  },
+  {
+    id:4, name:"Heritage Villa Estate", loc:"Shyamla Hills, Bhopal",
+    price:"₹7.2 Cr", type:"resale", beds:6, baths:5, sqft:"8,400",
+    floors:null, parking:4, agent:"Kavita Singh", agentInitial:"KS",
+    color:"bldg-5", category:"Residential",
+    desc:"Sprawling colonial-style bungalow on 1.2 acres. Original artwork, vintage fixtures, landscaped garden, 6 BHK layout."
+  },
+  {
+    id:5, name:"Orbit IT Park", loc:"Hoshangabad Road, Bhopal",
+    price:"₹3.2L/mo", type:"lease", beds:null, baths:null, sqft:"22,000",
+    floors:8, parking:200, agent:"Amit Tiwari", agentInitial:"AT",
+    color:"bldg-3", category:"IT/Commercial",
+    desc:"State-of-the-art IT park campus. SEZ benefits available. 3 interconnected towers, cafeteria, gym, conference center."
+  },
+  {
+    id:6, name:"Sagar Pearl Tower", loc:"VIP Road, Bhopal",
+    price:"₹5.6 Cr", type:"resale", beds:3, baths:3, sqft:"2,800",
+    floors:null, parking:2, agent:"Ritika Agarwal", agentInitial:"RA",
+    color:"bldg-6", category:"Residential",
+    desc:"Premium penthouse duplex with panoramic lake views. Private rooftop pool, smart home automation, imported marble."
+  }
+];
+ 
+const transactions = [
+  { name:"Rajkamal Tower", type:"Sale", val:"₹12.4 Cr", status:"active" },
+  { name:"Greenpark Residency", type:"Purchase", val:"₹3.8 Cr", status:"pending" },
+  { name:"Neelam Hub – Unit 4", type:"Lease", val:"₹1.8L/mo", status:"active" },
+  { name:"Heritage Villa", type:"Resale", val:"₹7.2 Cr", status:"sold" },
+  { name:"Orbit IT – Floor 3", type:"Lease", val:"₹3.2L/mo", status:"pending" },
+];
+ 
+const activities = [
+  { dot:"dot-inquiry", text:"New inquiry for <strong>Rajkamal Tower</strong> from Ankit Mehta", time:"12 min ago" },
+  { dot:"dot-sale", text:"Sale agreement signed — <strong>Greenpark Residency</strong> ₹3.8 Cr", time:"2 hours ago" },
+  { dot:"dot-lease", text:"Lease renewed — <strong>Orbit IT Park</strong> Floor 3 for 3 years", time:"Yesterday" },
+  { dot:"dot-resale", text:"Resale valuation completed — <strong>Heritage Villa</strong> at ₹7.2 Cr", time:"2 days ago" },
+  { dot:"dot-inquiry", text:"Document verification pending — <strong>Sagar Pearl Tower</strong>", time:"3 days ago" },
+];
+ 
+// ===== RENDER PROPERTIES =====
+function buildingShape(color, floors) {
+  const h = floors ? Math.min(90, 30 + floors * 2) : 60;
+  return `
+  <div class="building-visual ${color}">
+    <svg width="120" height="${h+30}" viewBox="0 0 120 ${h+30}" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="25" y="${30-h%15}" width="70" height="${h}" fill="rgba(255,255,255,0.06)" rx="2"/>
+      <rect x="35" y="${35-h%15}" width="50" height="${h+5}" fill="rgba(255,255,255,0.03)" rx="1"/>
+      <!-- windows -->
+      ${Array.from({length:Math.min(6,Math.floor(h/14))}).map((_,r)=>
+        [0,1,2].map(c=>`<rect x="${42+c*12}" y="${(35-h%15)+8+r*13}" width="7" height="8" fill="rgba(201,168,76,${Math.random()>0.4?0.6:0.1})" rx="1"/>`).join('')
+      ).join('')}
+      <rect x="52" y="5" width="16" height="${30-h%15-3}" fill="rgba(255,255,255,0.08)" rx="1"/>
+      <rect x="0" y="${h+28}" width="120" height="2" fill="rgba(201,168,76,0.3)"/>
+    </svg>
+  </div>`;
+}
+ 
+function renderProperties(filter='all') {
+  const grid = document.getElementById('prop-grid');
+  const filtered = filter === 'all' ? properties : properties.filter(p=>p.type===filter);
+  grid.innerHTML = filtered.map(p => `
+    <div class="property-card" onclick="openPropertyModal(${p.id})">
+      <div class="prop-img">
+        <div class="prop-img-inner">
+          ${buildingShape(p.color, p.floors)}
+        </div>
+        <div class="prop-badge badge-${p.type}">${
+          p.type==='sale'?'For Sale':p.type==='lease'?'For Lease':'Resale'
+        }</div>
+        <div class="prop-actions">
+          <button class="prop-action-btn" id="like-${p.id}" onclick="toggleLike(event,${p.id})" title="Wishlist">♡</button>
+          <button class="prop-action-btn" onclick="event.stopPropagation();showToast('📤','Share link copied!')" title="Share">↗</button>
+        </div>
+      </div>
+      <div class="prop-body">
+        <div class="prop-price">${p.price}</div>
+        <div class="prop-name">${p.name}</div>
+        <div class="prop-loc">📍 ${p.loc}</div>
+        <div class="prop-features">
+          ${p.beds ? `<div class="prop-feat"><span>🛏</span>${p.beds} Beds</div>` : ''}
+          ${p.baths ? `<div class="prop-feat"><span>🚿</span>${p.baths} Baths</div>` : ''}
+          ${p.floors ? `<div class="prop-feat"><span>🏢</span>${p.floors} Floors</div>` : ''}
+          <div class="prop-feat"><span>📐</span>${p.sqft} sqft</div>
+          <div class="prop-feat"><span>🚗</span>${p.parking} Parking</div>
+        </div>
+      </div>
+      <div class="prop-footer">
+        <div class="prop-agent">
+          <div class="agent-avatar">${p.agentInitial}</div>
+          <div class="agent-name">${p.agent}</div>
+        </div>
+        <button class="prop-cta" onclick="event.stopPropagation();showToast('📞','Agent contacted: '+properties.find(x=>x.id===${p.id}).agent)">Enquire</button>
+      </div>
+    </div>
+  `).join('');
+}
+ 
+// ===== RENDER TABLES =====
+function renderDashboard() {
+  const tbody = document.getElementById('txn-table');
+  tbody.innerHTML = transactions.map(t => `
+    <tr>
+      <td>${t.name}</td>
+      <td><span style="color:var(--muted);font-size:12px">${t.type}</span></td>
+      <td style="color:var(--gold)">${t.val}</td>
+      <td><span class="status-pill status-${t.status}">${t.status}</span></td>
+    </tr>
+  `).join('');
+ 
+  const feed = document.getElementById('activity-feed');
+  feed.innerHTML = activities.map(a => `
+    <div class="activity-item">
+      <div class="activity-dot ${a.dot}"></div>
+      <div>
+        <div class="activity-text">${a.text}</div>
+        <div class="activity-time">${a.time}</div>
+      </div>
+    </div>
+  `).join('');
+}
+ 
+// ===== MODALS =====
+function openPropertyModal(id) {
+  const p = properties.find(x => x.id === id);
+  document.getElementById('modal-title').textContent = p.name;
+  document.getElementById('modal-subtitle').textContent = `📍 ${p.loc} · ${p.category}`;
+  document.getElementById('modal-body').innerHTML = `
+    <div class="modal-two-col">
+      <div>
+        <div class="modal-img">
+          ${buildingShape(p.color, p.floors)}
+        </div>
+        <div style="font-size:13px;color:var(--muted);line-height:1.8;margin-bottom:20px;">${p.desc}</div>
+        <button class="btn-primary" style="width:100%" onclick="showToast('📞','Contacting ${p.agent}...')">Contact Agent — ${p.agent}</button>
+      </div>
+      <div>
+        <div class="detail-row">
+          <span class="detail-key">Listed Price</span>
+          <span class="detail-val gold" style="font-family:'Cormorant Garamond',serif;font-size:22px">${p.price}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-key">Type</span>
+          <span class="detail-val">${p.category}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-key">Total Area</span>
+          <span class="detail-val">${p.sqft} sq.ft.</span>
+        </div>
+        ${p.floors ? `<div class="detail-row"><span class="detail-key">Floors</span><span class="detail-val">${p.floors}</span></div>` : ''}
+        ${p.beds ? `<div class="detail-row"><span class="detail-key">Bedrooms</span><span class="detail-val">${p.beds}</span></div>` : ''}
+        ${p.baths ? `<div class="detail-row"><span class="detail-key">Bathrooms</span><span class="detail-val">${p.baths}</span></div>` : ''}
+        <div class="detail-row">
+          <span class="detail-key">Parking Slots</span>
+          <span class="detail-val">${p.parking}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-key">Listing Type</span>
+          <span class="detail-val" style="text-transform:capitalize">${p.type === 'sale' ? 'For Sale' : p.type === 'lease' ? 'For Lease' : 'Resale'}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-key">RERA Status</span>
+          <span class="detail-val" style="color:var(--success)">Verified ✓</span>
+        </div>
+        <div style="margin-top:24px;">
+          <div class="form-group">
+            <label class="form-label">Your Name</label>
+            <input class="form-input" placeholder="Full Name">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone Number</label>
+            <input class="form-input" placeholder="+91 XXXXX XXXXX">
+          </div>
+          <button class="btn-outline" style="width:100%" onclick="showToast('✅','Enquiry submitted! Agent will call soon.')">Submit Enquiry</button>
+        </div>
+      </div>
+    </div>
+  `;
+  document.getElementById('modal-overlay').classList.add('open');
+}
+ 
+function openModal(type) {
+  if (type === 'list-prop') {
+    document.getElementById('modal-title').textContent = 'List Your Property';
+    document.getElementById('modal-subtitle').textContent = 'Reach 50,000+ verified buyers & tenants';
+    document.getElementById('modal-body').innerHTML = `
+      <div class="modal-two-col">
+        <div>
+          <div class="form-group">
+            <label class="form-label">Property Name</label>
+            <input class="form-input" placeholder="e.g. Sunrise Commercial Tower">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Location</label>
+            <input class="form-input" placeholder="Area, City">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Property Type</label>
+            <select class="form-select">
+              <option>Commercial Office</option>
+              <option>Residential Apartment</option>
+              <option>Villa/Bungalow</option>
+              <option>Industrial/Warehouse</option>
+              <option>Retail/Showroom</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Listing Type</label>
+            <select class="form-select">
+              <option>For Sale</option>
+              <option>For Lease</option>
+              <option>Resale</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <div class="form-group">
+            <label class="form-label">Expected Price / Rent</label>
+            <input class="form-input" placeholder="₹ Amount">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Total Area (sq.ft.)</label>
+            <input class="form-input" placeholder="e.g. 5000">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Your Name</label>
+            <input class="form-input" placeholder="Owner / Agent Name">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Contact Number</label>
+            <input class="form-input" placeholder="+91 XXXXX XXXXX">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Description</label>
+            <textarea class="form-input" rows="3" placeholder="Key features, amenities..."></textarea>
+          </div>
+          <button class="btn-primary" style="width:100%;margin-top:8px" onclick="showToast('🏢','Property listed! Our team will review in 24 hours.')">Submit Listing</button>
+        </div>
+      </div>
+    `;
+    document.getElementById('modal-overlay').classList.add('open');
+  }
+  if (type === 'resale-calc') {
+    document.getElementById('modal-title').textContent = 'Resale Valuation Request';
+    document.getElementById('modal-subtitle').textContent = 'Get market-based valuation in 48 hours';
+    document.getElementById('modal-body').innerHTML = `
+      <div class="modal-two-col">
+        <div>
+          <div class="form-group">
+            <label class="form-label">Property Address</label>
+            <input class="form-input" placeholder="Full address">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Property Type</label>
+            <select class="form-select">
+              <option>Residential Apartment</option>
+              <option>Villa/Bungalow</option>
+              <option>Commercial Office</option>
+              <option>Plot/Land</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Year of Purchase</label>
+            <input class="form-input" placeholder="e.g. 2018" type="number">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Original Purchase Price</label>
+            <input class="form-input" placeholder="₹ Amount">
+          </div>
+        </div>
+        <div>
+          <div class="form-group">
+            <label class="form-label">Built-up Area (sq.ft.)</label>
+            <input class="form-input" placeholder="e.g. 2400" type="number">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Current Condition</label>
+            <select class="form-select">
+              <option>Excellent – Like New</option>
+              <option>Good – Minor Wear</option>
+              <option>Average – Needs Work</option>
+              <option>Poor – Major Repairs</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Contact Number</label>
+            <input class="form-input" placeholder="+91 XXXXX XXXXX">
+          </div>
+          <div style="background:rgba(201,168,76,0.08);border:1px solid var(--border);padding:16px;margin-bottom:20px;">
+            <div style="font-size:12px;color:var(--muted);margin-bottom:4px;">Estimated Turnaround</div>
+            <div style="font-size:14px;color:var(--gold)">📊 Valuation report in 48 hours</div>
+          </div>
+          <button class="btn-primary" style="width:100%" onclick="showToast('📊','Valuation request submitted! You will receive report within 48 hours.')">Request Valuation</button>
+        </div>
+      </div>
+    `;
+    document.getElementById('modal-overlay').classList.add('open');
+  }
+}
+ 
+function closeModal(e) {
+  if(e.target.id === 'modal-overlay') document.getElementById('modal-overlay').classList.remove('open');
+}
+ 
+// ===== FILTER =====
+function filterProps(btn, filter) {
+  document.querySelectorAll('.filter-tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderProperties(filter);
+}
+ 
+// ===== LIKE =====
+function toggleLike(e, id) {
+  e.stopPropagation();
+  const btn = document.getElementById(`like-${id}`);
+  btn.classList.toggle('liked');
+  btn.textContent = btn.classList.contains('liked') ? '♥' : '♡';
+  showToast(btn.classList.contains('liked') ? '❤️' : '🤍', btn.classList.contains('liked') ? 'Added to wishlist' : 'Removed from wishlist');
+}
+ 
+// ===== TOAST =====
+let toastTimer;
+function showToast(icon, text) {
+  const t = document.getElementById('toast');
+  document.getElementById('toast-icon').textContent = icon;
+  document.getElementById('toast-text').textContent = text;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.classList.remove('show'), 3000);
+}
+ 
+// ===== SMOOTH SCROLL =====
+function smoothScroll(id) {
+  document.getElementById(id).scrollIntoView({behavior:'smooth'});
+}
+ 
+// ===== REVEAL ON SCROLL =====
+function checkReveal() {
+  document.querySelectorAll('.reveal').forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight - 80) el.classList.add('visible');
+  });
+}
+ 
+window.addEventListener('scroll', checkReveal);
+ 
+// ===== ACTIVE NAV =====
+window.addEventListener('scroll', () => {
+  const sections = ['hero','listings','dashboard','management','resale'];
+  const links = document.querySelectorAll('.nav-links a');
+  let cur = 'hero';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if(el && window.scrollY >= el.offsetTop - 120) cur = id;
+  });
+});
+ 
+// ===== INIT =====
+renderProperties();
+renderDashboard();
+setTimeout(checkReveal, 100);
+</script>
+</body>
+</html>
