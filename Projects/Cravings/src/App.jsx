@@ -13,14 +13,14 @@ const App = () => {
           </div>
           <div className="flex justify-center align-center ">
             <button className="btn btn-primary  bg-amber-700 h-8 w-20 text-center text-white rounded-2xl  hover:bg-amber-500 active:bg-amber-500">
-              Register
+              Register cv c gf, hnmer,jgndflj
             </button>
           </div>
         </div>
       </div>
 
       <div class="w-full h-screen bg-[url('./assets/images/HelpPage.jpg')] bg-cover bg-center">
-      
+       
       </div>
 
       <div className="flex justify-center align-center m-2">
